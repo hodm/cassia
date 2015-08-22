@@ -1,14 +1,37 @@
-using System;
-using System.Collections.Generic;
-using Cassia;
-using Microsoft.Win32;
+//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="Cassia Developers">
+//     Copyright © 2008 - 2015.
+// </copyright>
+// <version>1.01</version>
+// <changes>
+//     1.00 - exported from code.google.com/p/cassia
+//     1.01 - updated by Hod Malkiel https://github.com/hodm/cassia
+// </changes>
+//-----------------------------------------------------------------------
 
 namespace SessionInfo
 {
-    internal class Program
-    {
-        private static readonly ITerminalServicesManager _manager = new TerminalServicesManager();
+    using System;
+    using System.Collections.Generic;
+    using Cassia;
+    using Microsoft.Win32;
+    using Res;
 
+    /// <summary>
+    /// This Class represents the Main Dos based program.
+    /// </summary>
+    internal static class Program
+    {
+        /// <summary>
+        /// The terminal services manager
+        /// </summary>
+        private static readonly ITerminalServicesManager tsManager = new TerminalServicesManager();
+
+
+        /// <summary>
+        /// Mains method given the command line arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         private static void Main(string[] args)
         {
             try
@@ -72,7 +95,8 @@ namespace SessionInfo
                         Connect(args);
                         return;
                 }
-                Console.WriteLine("Unknown command: " + args[0]);
+
+                Console.WriteLine(Lang.UnknownCommand, args[0]);
             }
             catch (Exception ex)
             {
@@ -80,14 +104,20 @@ namespace SessionInfo
             }
         }
 
+        /// <summary>
+        /// Connects fro one session to another session given a password to connect.
+        /// SessionInfo connect [source session id] [target session id] [password]
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         private static void Connect(string[] args)
         {
             if (args.Length < 4)
             {
-                Console.WriteLine("Usage: SessionInfo connect [source session id] [target session id] [password]");
+                // show Usage: SessionInfo connect [source session id] [target session id] [password]
+                Console.WriteLine(Lang.UsageConnect);
                 return;
             }
-            using (var server = _manager.GetLocalServer())
+            using (var server = tsManager.GetLocalServer())
             {
                 server.Open();
                 var source = server.GetSession(int.Parse(args[1]));
@@ -101,10 +131,11 @@ namespace SessionInfo
         {
             if (args.Length < 2)
             {
-                Console.WriteLine("Usage: SessionInfo stopremotecontrol [session id]");
+                // show Usage: SessionInfo stopremotecontrol [session id]
+                Console.WriteLine(Lang.UsageStopRemoteControl);
                 return;
             }
-            using (var server = _manager.GetLocalServer())
+            using (var server = tsManager.GetLocalServer())
             {
                 server.Open();
                 var session = server.GetSession(int.Parse(args[1]));
@@ -116,7 +147,8 @@ namespace SessionInfo
         {
             if (args.Length < 5)
             {
-                Console.WriteLine("Usage: SessionInfo startremotecontrol [server] [session id] [modifier] [hotkey]");
+                // show Usage: SessionInfo startremotecontrol [server] [session id] [modifier] [hotkey]
+                Console.WriteLine(Lang.UsageStartRemoteControl);
                 return;
             }
             using (var server = GetServerFromName(args[1]))
@@ -126,22 +158,23 @@ namespace SessionInfo
                 var modifier =
                     (RemoteControlHotkeyModifiers)
                     Enum.Parse(typeof(RemoteControlHotkeyModifiers), args[3].Replace('+', ','), true);
-                var hotkey = (ConsoleKey) Enum.Parse(typeof(ConsoleKey), args[4], true);
+                var hotkey = (ConsoleKey)Enum.Parse(typeof(ConsoleKey), args[4], true);
                 session.StartRemoteControl(hotkey, modifier);
             }
         }
 
         private static void ShowActiveConsoleSession()
         {
-            Console.WriteLine("Active console session:");
-            WriteSessionInfo(_manager.ActiveConsoleSession);
+            Console.WriteLine(Lang.ActiveConsoleSession);
+            WriteSessionInfo(tsManager.ActiveConsoleSession);
         }
 
         private static void WaitForEvents()
         {
-            Console.WriteLine("Waiting for events; press Enter to exit.");
+            // Show Waiting for events; press Enter to exit.
+            Console.WriteLine(Lang.WaitEnterExitMsg);
             SystemEvents.SessionSwitch +=
-                delegate(object sender, SessionSwitchEventArgs args) { Console.WriteLine(args.Reason); };
+                delegate (object sender, SessionSwitchEventArgs args) { Console.WriteLine(args.Reason); };
             Console.ReadLine();
         }
 
@@ -149,13 +182,14 @@ namespace SessionInfo
         {
             if (args.Length < 3)
             {
-                Console.WriteLine("Usage: SessionInfo shutdown [server] [shutdown type]");
+                // show Usage: SessionInfo shutdown [server] [shutdown type]
+                Console.WriteLine(Lang.UsageShutdown);
                 return;
             }
             using (var server = GetServerFromName(args[1]))
             {
                 server.Open();
-                var type = (ShutdownType) Enum.Parse(typeof(ShutdownType), args[2], true);
+                var type = (ShutdownType)Enum.Parse(typeof(ShutdownType), args[2], true);
                 server.Shutdown(type);
             }
         }
@@ -164,7 +198,8 @@ namespace SessionInfo
         {
             if (args.Length < 4)
             {
-                Console.WriteLine("Usage: SessionInfo killprocess [server] [process id] [exit code]");
+                // show Usage: SessionInfo killprocess [server] [process id] [exit code]
+                Console.WriteLine(Lang.UsageKillProcess);
                 return;
             }
             var processId = int.Parse(args[2]);
@@ -181,7 +216,8 @@ namespace SessionInfo
         {
             if (args.Length < 2)
             {
-                Console.WriteLine("Usage: SessionInfo listprocesses [server]");
+                // show Usage: SessionInfo listprocesses [server]
+                Console.WriteLine(Lang.UsageListProcesses);
                 return;
             }
             using (var server = GetServerFromName(args[1]))
@@ -201,17 +237,17 @@ namespace SessionInfo
 
         private static void WriteProcessInfo(ITerminalServicesProcess process)
         {
-            Console.WriteLine("Session ID: " + process.SessionId);
-            Console.WriteLine("Process ID: " + process.ProcessId);
-            Console.WriteLine("Process Name: " + process.ProcessName);
-            Console.WriteLine("SID: " + process.SecurityIdentifier);
-            Console.WriteLine("Working Set: " + process.UnderlyingProcess.WorkingSet64);
+            Console.WriteLine(Lang.SessionID, process.SessionId);
+            Console.WriteLine(Lang.ProcessID, process.ProcessId);
+            Console.WriteLine(Lang.ProcessName, process.ProcessName);
+            Console.WriteLine(Lang.SID, process.SecurityIdentifier);
+            Console.WriteLine(Lang.WorkingSet, process.UnderlyingProcess.WorkingSet64);
         }
 
         private static void ListServers(string[] args)
         {
             var domainName = (args.Length > 1 ? args[1] : null);
-            foreach (ITerminalServer server in _manager.GetServers(domainName))
+            foreach (ITerminalServer server in tsManager.GetServers(domainName))
             {
                 Console.WriteLine(server.ServerName);
             }
@@ -221,8 +257,8 @@ namespace SessionInfo
         {
             if (args.Length < 8)
             {
-                Console.WriteLine(
-                    "Usage: SessionInfo ask [server] [session id] [icon] [caption] [text] [timeout] [buttons]");
+                // show Usage: SessionInfo ask [server] [session id] [icon] [caption] [text] [timeout] [buttons]
+                Console.WriteLine(Lang.UsageAsk);
                 return;
             }
             var seconds = int.Parse(args[6]);
@@ -231,11 +267,11 @@ namespace SessionInfo
             {
                 server.Open();
                 var session = server.GetSession(sessionId);
-                var icon = (RemoteMessageBoxIcon) Enum.Parse(typeof(RemoteMessageBoxIcon), args[3], true);
-                var buttons = (RemoteMessageBoxButtons) Enum.Parse(typeof(RemoteMessageBoxButtons), args[7], true);
+                var icon = (RemoteMessageBoxIcon)Enum.Parse(typeof(RemoteMessageBoxIcon), args[3], true);
+                var buttons = (RemoteMessageBoxButtons)Enum.Parse(typeof(RemoteMessageBoxButtons), args[7], true);
                 var result = session.MessageBox(args[5], args[4], buttons, icon, default(RemoteMessageBoxDefaultButton),
                                                 default(RemoteMessageBoxOptions), TimeSpan.FromSeconds(seconds), true);
-                Console.WriteLine("Response: " + result);
+                Console.WriteLine(Lang.Response, result);
             }
         }
 
@@ -243,7 +279,8 @@ namespace SessionInfo
         {
             if (args.Length < 6)
             {
-                Console.WriteLine("Usage: SessionInfo message [server] [session id] [icon] [caption] [text]");
+                // show Usage: SessionInfo message [server] [session id] [icon] [caption] [text]
+                Console.WriteLine(Lang.UsageMessage);
                 return;
             }
             var sessionId = int.Parse(args[2]);
@@ -251,7 +288,7 @@ namespace SessionInfo
             {
                 server.Open();
                 var session = server.GetSession(sessionId);
-                var icon = (RemoteMessageBoxIcon) Enum.Parse(typeof(RemoteMessageBoxIcon), args[3], true);
+                var icon = (RemoteMessageBoxIcon)Enum.Parse(typeof(RemoteMessageBoxIcon), args[3], true);
                 session.MessageBox(args[5], args[4], icon);
             }
         }
@@ -260,7 +297,8 @@ namespace SessionInfo
         {
             if (args.Length < 3)
             {
-                Console.WriteLine("Usage: SessionInfo get [server] [session id]");
+                // show Usage: SessionInfo get [server] [session id]
+                Console.WriteLine(Lang.UsageGet);
                 return;
             }
             var sessionId = int.Parse(args[2]);
@@ -275,7 +313,8 @@ namespace SessionInfo
         {
             if (args.Length < 3)
             {
-                Console.WriteLine("Usage: SessionInfo listsessionprocesses [server] [session id]");
+                // Usage: SessionInfo listsessionprocesses [server] [session id]
+                Console.WriteLine(Lang.UsageListSessionProcesses);
                 return;
             }
             var sessionId = int.Parse(args[2]);
@@ -291,7 +330,8 @@ namespace SessionInfo
         {
             if (args.Length < 2)
             {
-                Console.WriteLine("Usage: SessionInfo listsessions [server]");
+                // show Usage: SessionInfo listsessions [server]
+                Console.WriteLine(Lang.UsageListSessions);
                 return;
             }
             using (var server = GetServerFromName(args[1]))
@@ -306,15 +346,16 @@ namespace SessionInfo
 
         private static void ShowCurrentSession()
         {
-            Console.WriteLine("Current session:");
-            WriteSessionInfo(_manager.CurrentSession);
+            Console.WriteLine(Lang.CurrenSession);
+            WriteSessionInfo(tsManager.CurrentSession);
         }
 
         private static void LogoffSession(string[] args)
         {
             if (args.Length < 3)
             {
-                Console.WriteLine("Usage: SessionInfo logoff [server] [session id]");
+                // show Usage: SessionInfo logoff [server] [session id]
+                Console.WriteLine(Lang.UsageLogoff);
                 return;
             }
             var serverName = args[1];
@@ -329,16 +370,17 @@ namespace SessionInfo
 
         private static ITerminalServer GetServerFromName(string serverName)
         {
-            return (serverName.Equals("local", StringComparison.InvariantCultureIgnoreCase)
-                        ? _manager.GetLocalServer()
-                        : _manager.GetRemoteServer(serverName));
+            return (serverName.Equals("local", StringComparison.OrdinalIgnoreCase)
+                        ? tsManager.GetLocalServer()
+                        : tsManager.GetRemoteServer(serverName));
         }
 
         private static void DisconnectSession(string[] args)
         {
             if (args.Length < 3)
             {
-                Console.WriteLine("Usage: SessionInfo disconnect [server] [session id]");
+                // show Usage: SessionInfo disconnect [server] [session id]
+                Console.WriteLine(Lang.UsageDisconnect);
                 return;
             }
             var serverName = args[1];
@@ -357,59 +399,69 @@ namespace SessionInfo
             {
                 return;
             }
-            Console.WriteLine("Session ID: " + session.SessionId);
+
+            Console.WriteLine(Lang.SessionID, session.SessionId);
             if (session.UserAccount != null)
             {
-                Console.WriteLine("User: " + session.UserAccount);
+                Console.WriteLine(Lang.User, session.UserAccount);
             }
+
             if (session.ClientIPAddress != null)
             {
-                Console.WriteLine("IP Address: " + session.ClientIPAddress);
+                Console.WriteLine(Lang.IPAddress, session.ClientIPAddress);
             }
+
             if (session.RemoteEndPoint != null)
             {
-                Console.WriteLine("Remote endpoint: " + session.RemoteEndPoint);
+                Console.WriteLine(Lang.RemoteEndpoint + session.RemoteEndPoint);
             }
-            Console.WriteLine("Window Station: " + session.WindowStationName);
-            Console.WriteLine("Client Directory: " + session.ClientDirectory);
-            Console.WriteLine("Client Build Number: " + session.ClientBuildNumber);
-            Console.WriteLine("Client Hardware ID: " + session.ClientHardwareId);
-            Console.WriteLine("Client Product ID: " + session.ClientProductId);
-            Console.WriteLine("Client Protocol Type: " + session.ClientProtocolType);
+
+            Console.WriteLine(Lang.WindowStation, session.WindowStationName);
+            Console.WriteLine(Lang.ClientDirectory, session.ClientDirectory);
+            Console.WriteLine(Lang.ClientBuildNumber, session.ClientBuildNumber);
+            Console.WriteLine(Lang.ClientHardwareID, session.ClientHardwareId);
+            Console.WriteLine(Lang.ClientProductID, session.ClientProductId);
+            Console.WriteLine(Lang.ClientProtocolType, session.ClientProtocolType);
             if (session.ClientProtocolType != ClientProtocolType.Console)
             {
                 // These properties often throw exceptions for the console session.
-                Console.WriteLine("Application Name: " + session.ApplicationName);
-                Console.WriteLine("Initial Program: " + session.InitialProgram);
-                Console.WriteLine("Initial Working Directory: " + session.WorkingDirectory);
+                Console.WriteLine(Lang.ApplicationName, session.ApplicationName);
+                Console.WriteLine(Lang.InitialProgram, session.InitialProgram);
+                Console.WriteLine(Lang.InitialWorkingDirectory, session.WorkingDirectory);
             }
-            Console.WriteLine("State: " + session.ConnectionState);
-            Console.WriteLine("Connect Time: " + session.ConnectTime);
-            Console.WriteLine("Logon Time: " + session.LoginTime);
-            Console.WriteLine("Last Input Time: " + session.LastInputTime);
-            Console.WriteLine("Idle Time: " + session.IdleTime);
-            Console.WriteLine(string.Format("Client Display: {0}x{1} with {2} bits per pixel",
-                                            session.ClientDisplay.HorizontalResolution,
-                                            session.ClientDisplay.VerticalResolution, session.ClientDisplay.BitsPerPixel));
+
+            Console.WriteLine(Lang.State, session.ConnectionState);
+            Console.WriteLine(Lang.ConnectTime, session.ConnectTime);
+            Console.WriteLine(Lang.LogonTime, session.LoginTime);
+            Console.WriteLine(Lang.LastInputTime, session.LastInputTime);
+            Console.WriteLine(Lang.IdleTime, session.IdleTime);
+
+            // show Client Display: {0}x{1} with {2} bits per pixel
+            Console.WriteLine(Lang.ClientDisplay,
+                            session.ClientDisplay.HorizontalResolution,
+                            session.ClientDisplay.VerticalResolution,
+                            session.ClientDisplay.BitsPerPixel);
             if (session.IncomingStatistics != null)
             {
-                Console.Write("Incoming protocol statistics: ");
+                Console.Write(Lang.IncomingProtocolStatistics);
                 WriteProtocolStatistics(session.IncomingStatistics);
                 Console.WriteLine();
             }
+
             if (session.OutgoingStatistics != null)
             {
-                Console.Write("Outgoing protocol statistics: ");
+                Console.Write(Lang.OutgoingProtocolStatistics);
                 WriteProtocolStatistics(session.OutgoingStatistics);
                 Console.WriteLine();
             }
+
             Console.WriteLine();
         }
 
         private static void WriteProtocolStatistics(IProtocolStatistics statistics)
         {
-            Console.Write("Bytes: " + statistics.Bytes + " Frames: " + statistics.Frames + " Compressed: " +
-                          statistics.CompressedBytes);
+            // show "Bytes: {0} Frames: {1} Compressed: {2}", statistics.Bytes, statistics.Frames, statistics.CompressedBytes
+            Console.Write(Lang.ProtocolStatistics, statistics.Bytes, statistics.Frames, statistics.CompressedBytes);
         }
     }
 }

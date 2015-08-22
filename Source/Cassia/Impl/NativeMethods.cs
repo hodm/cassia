@@ -24,6 +24,9 @@ namespace Cassia.Impl
         public static extern IntPtr WTSOpenServer(string serverName);
 
         [DllImport("wtsapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr WTSOpenServerEx(string serverName);
+
+        [DllImport("wtsapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern void WTSCloseServer(IntPtr hServer);
 
         [DllImport("wtsapi32.dll", SetLastError = true)]

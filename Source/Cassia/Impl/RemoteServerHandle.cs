@@ -55,7 +55,7 @@ namespace Cassia.Impl
             {
                 return;
             }
-            _serverPtr = NativeMethods.WTSOpenServer(_serverName);
+            _serverPtr = NativeMethods.WTSOpenServerEx(_serverName);
             if (_serverPtr == IntPtr.Zero)
             {
                 // Failed to connect, possibly because Terminal Services is not running on the remote machine.

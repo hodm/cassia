@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveConsoleSession" xml:space="preserve">
+    <value>Active console session:</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Application Name: {0}</value>
+  </data>
+  <data name="ClientBuildNumber" xml:space="preserve">
+    <value>Client Build Number: {0}</value>
+  </data>
+  <data name="ClientDirectory" xml:space="preserve">
+    <value>Client Directory: {0}</value>
+  </data>
+  <data name="ClientDisplay" xml:space="preserve">
+    <value>Client Display: {0}x{1} with {2} bits per pixel</value>
+  </data>
+  <data name="ClientHardwareID" xml:space="preserve">
+    <value>Client Hardware ID: {0}</value>
+  </data>
+  <data name="ClientProductID" xml:space="preserve">
+    <value>Client Product ID: {0}</value>
+  </data>
+  <data name="ClientProtocolType" xml:space="preserve">
+    <value>Client Protocol Type: {0}</value>
+  </data>
+  <data name="ConnectTime" xml:space="preserve">
+    <value>Connect Time: {0}</value>
+  </data>
+  <data name="CurrenSession" xml:space="preserve">
+    <value>Current session:</value>
+  </data>
+  <data name="IdleTime" xml:space="preserve">
+    <value>Idle Time: {0}</value>
+  </data>
+  <data name="IncomingProtocolStatistics" xml:space="preserve">
+    <value>Incoming protocol statistics: </value>
+  </data>
+  <data name="InitialProgram" xml:space="preserve">
+    <value>Initial Program: {0}</value>
+  </data>
+  <data name="InitialWorkingDirectory" xml:space="preserve">
+    <value>Initial Working Directory: {0}</value>
+  </data>
+  <data name="IPAddress" xml:space="preserve">
+    <value>IP Address: {0}</value>
+  </data>
+  <data name="LastInputTime" xml:space="preserve">
+    <value>Last Input Time: {0}</value>
+  </data>
+  <data name="LogonTime" xml:space="preserve">
+    <value>Logon Time: {0}</value>
+  </data>
+  <data name="OutgoingProtocolStatistics" xml:space="preserve">
+    <value>Outgoing protocol statistics: </value>
+  </data>
+  <data name="ProcessID" xml:space="preserve">
+    <value>Process ID: {0}</value>
+  </data>
+  <data name="ProcessName" xml:space="preserve">
+    <value>Process Name: {0}</value>
+  </data>
+  <data name="ProtocolStatistics" xml:space="preserve">
+    <value>Bytes: {0} Frames: {1} Compressed: {2}</value>
+  </data>
+  <data name="RemoteEndpoint" xml:space="preserve">
+    <value>Remote endpoint: {0}</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>Response: {0}</value>
+  </data>
+  <data name="SessionID" xml:space="preserve">
+    <value>Session ID: {0}</value>
+  </data>
+  <data name="SID" xml:space="preserve">
+    <value>SID: {0}</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>State: {0}</value>
+  </data>
+  <data name="UnknownCommand" xml:space="preserve">
+    <value>Unknown command: {0}</value>
+  </data>
+  <data name="UsageAsk" xml:space="preserve">
+    <value>Usage: SessionInfo ask [server] [session id] [icon] [caption] [text] [timeout] [buttons]</value>
+  </data>
+  <data name="UsageConnect" xml:space="preserve">
+    <value>Usage: SessionInfo connect [source session id] [target session id] [password]</value>
+  </data>
+  <data name="UsageDisconnect" xml:space="preserve">
+    <value>Usage: SessionInfo disconnect [server] [session id]</value>
+  </data>
+  <data name="UsageGet" xml:space="preserve">
+    <value>Usage: SessionInfo get [server] [session id]</value>
+  </data>
+  <data name="UsageKillProcess" xml:space="preserve">
+    <value>Usage: SessionInfo killprocess [server] [process id] [exit code]</value>
+  </data>
+  <data name="UsageListProcesses" xml:space="preserve">
+    <value>Usage: SessionInfo listprocesses [server]</value>
+  </data>
+  <data name="UsageListSessionProcesses" xml:space="preserve">
+    <value>Usage: SessionInfo listsessionprocesses [server] [session id]</value>
+  </data>
+  <data name="UsageListSessions" xml:space="preserve">
+    <value>Usage: SessionInfo listsessions [server]</value>
+  </data>
+  <data name="UsageLogoff" xml:space="preserve">
+    <value>Usage: SessionInfo logoff [server] [session id]</value>
+  </data>
+  <data name="UsageMessage" xml:space="preserve">
+    <value>Usage: SessionInfo message [server] [session id] [icon] [caption] [text]</value>
+  </data>
+  <data name="UsageShutdown" xml:space="preserve">
+    <value>Usage: SessionInfo shutdown [server] [shutdown type]</value>
+  </data>
+  <data name="UsageStartRemoteControl" xml:space="preserve">
+    <value>Usage: SessionInfo startremotecontrol [server] [session id] [modifier] [hotkey]</value>
+  </data>
+  <data name="UsageStopRemoteControl" xml:space="preserve">
+    <value>Usage: SessionInfo stopremotecontrol [session id]</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User: {0}</value>
+  </data>
+  <data name="WaitEnterExitMsg" xml:space="preserve">
+    <value>Waiting for events; press Enter to exit.</value>
+  </data>
+  <data name="WindowStation" xml:space="preserve">
+    <value>Window Station: {0}</value>
+  </data>
+  <data name="WorkingSet" xml:space="preserve">
+    <value>Working Set: {0}</value>
+  </data>
+</root>
